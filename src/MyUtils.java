@@ -19,10 +19,14 @@ public class MyUtils {
      */
     public static String inverteix(String cadena) {
         String resultat = "";
-        for (int i = cadena.length() -1; i > 0; i--) {
-            resultat = resultat + cadena.charAt(i);
+        if (cadena == null) {
+            return null;
+        } else {
+            for (int i = cadena.length() - 1; i > 0; i--) {
+                resultat = resultat + cadena.charAt(i);
+            }
+            return resultat;
         }
-        return resultat;
     }
 
     /**
@@ -30,7 +34,7 @@ public class MyUtils {
      * @param day int dia del naixement
      * @param month int mes del naixement
      * @param year int any del naixement
-     * @return edat de la persona, per edat>150 retorna -1, per dates
+     * @return edat de la persona, per edat<150 retorna -1, per dates
      * impossibles retorna -2
      *
      */
@@ -41,8 +45,8 @@ public class MyUtils {
         int mes = 0;
         int any = 0;
         int dia2, mes2, any2;
-
-        dia = (c1.get(Calendar.DATE));
+        if ((day >= 1 && day <= 31) && (month >= 1 && month <= 12)) {
+            dia = (c1.get(Calendar.DATE));
         mes = (c1.get(Calendar.MONTH));
         any = (c1.get(Calendar.YEAR));
 
@@ -54,14 +58,16 @@ public class MyUtils {
             dia2 = 0 - dia2;
             mes2 -= 1;
         }
-        if (mes2 <= 0){
+        if (mes2 <= 0) {
             any2 -= 1;
             mes += 12;
         }
-        if (any2 > 150){
-            resultat = -2;
-        } else {
+        if (any2 > 150) {
             resultat = -1;
+        } 
+        
+        } else {
+            resultat = -2;
         }
         return resultat;
     }
@@ -74,19 +80,14 @@ public class MyUtils {
      */
     public static double factorial(double numero) {
         int factorial = 1;
-        if (numero == 0) {
-            return 1;
+        if (numero <= 0) {
+            return -1;
         } else {
-
             for (int i = (int) numero; i > 0; i--) {
                 factorial *= i;
             }
-        }
-        if (factorial < 0) {
-            return -1;
-        } else {
             return factorial;
-        }
 
+        }
     }
 }
