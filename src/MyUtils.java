@@ -22,9 +22,10 @@ public class MyUtils {
         if (cadena == null) {
             return null;
         } else {
-            for (int i = cadena.length() - 1; i > 0; i--) {
+            for (int i = cadena.length() - 1; i >= 0; i--) {
                 resultat = resultat + cadena.charAt(i);
             }
+            System.out.println(resultat);
             return resultat;
         }
     }
@@ -41,35 +42,33 @@ public class MyUtils {
     public static int edat(int day, int month, int year) {
         Calendar c1 = new GregorianCalendar();
         int resultat = 0;
-        int dia = 0;
-        int mes = 0;
-        int any = 0;
+        int dia, mes, any;
         int dia2, mes2, any2;
-        if ((day >= 1 && day <= 31) && (month >= 1 && month <= 12)) {
-            dia = (c1.get(Calendar.DATE));
-        mes = (c1.get(Calendar.MONTH));
-        any = (c1.get(Calendar.YEAR));
 
-        dia2 = dia - day;
-        mes2 = mes - month;
-        any2 = any - year;
+        if (day <= 0 || day > 31 || month <= 0 || month > 12) {
 
-        if (dia2 <= 0) {
-            dia2 = 0 - dia2;
-            mes2 -= 1;
-        }
-        if (mes2 <= 0) {
-            any2 -= 1;
-            mes += 12;
-        }
-        if (any2 > 150) {
-            resultat = -1;
-        } 
-        
+            return -2;
+
         } else {
-            resultat = -2;
+
+            dia = (c1.get(Calendar.DATE));
+            mes = (c1.get(Calendar.MONTH));
+            any = (c1.get(Calendar.YEAR));
+
+            dia2 = dia - day;
+            mes2 = month - mes;
+            any2 = any - year;
+
+            if (any2 > 150) {
+                resultat = -1;
+            } else if (any2 <= 0) {
+                resultat = -2;
+            } else {
+                resultat = any2;
+            }
+
+            return resultat;
         }
-        return resultat;
     }
 
     /**
@@ -78,14 +77,16 @@ public class MyUtils {
      * @return retorna el factorial d'un número. Si el nombre es negatiu retorna
      * -1.
      */
-    public static double factorial(double numero) {
+    public static int factorial(int numero) throws noEntero{
         int factorial = 1;
         if (numero <= 0) {
-            return -1;
+            factorial = -1;
+            return factorial;
         } else {
             for (int i = (int) numero; i > 0; i--) {
                 factorial *= i;
             }
+            System.out.println(factorial);
             return factorial;
 
         }
